@@ -2,7 +2,7 @@
 
 ## Description
 
-Image Upload script with multiple file selection and validation for [Vanilla.js](http://vanilla-js.com/) framework
+Image Upload script with multiple file selection and validation for [Vanilla.js](http://vanilla-js.com/) framework.
 Support client-side image resizing.
 
 ## Browsers
