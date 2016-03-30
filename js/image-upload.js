@@ -44,12 +44,16 @@ function ImageUpload(form, settings) {
         }
 
         this.append = function(file) {
-            formData.append(name, file, file.name);
-            ++length;
+            if(checkMaxSize(file)) {
+                formData.append(name, file, file.name);
+                ++length;
+            } else {
+                --maxLength;
+            }
         }
 
         this.full = function() {
-            return length === maxLength;
+            return maxLength > 0 && length === maxLength;
         }
 
         this.get = function() {
@@ -88,13 +92,8 @@ function ImageUpload(form, settings) {
         });
     }
 
-    function check(file) {
+    function checkExtensions(file) {
 
-        if (typeof options.maxFileSize === 'number' &&
-            file.size > options.maxFileSize) {
-            error_message = "The file " + file.name + " must be less than " + (options.maxFileSize / 1024 / 1024) + "MB";
-            return false;
-        }
         if (options.fileTypes &&
             !options.fileTypes.test(file.type)) {
 
@@ -105,7 +104,20 @@ function ImageUpload(form, settings) {
         return true;
     }
 
+    function checkMaxSize(file) {
+
+        if (typeof options.maxFileSize === 'number' &&
+            file.size > options.maxFileSize) {
+            error_message = "The file " + file.name + " must be less than " + (options.maxFileSize / 1024 / 1024) + "MB";
+            return false;
+        }
+
+        return true;
+    }
+
     function upload(file) {
+
+
 
         data.append(file);
 
@@ -189,7 +201,7 @@ function ImageUpload(form, settings) {
 
                 var file = inputs[i].files[j];
 
-                if (!check(file)) {
+                if (!checkExtensions(file)) {
                     alert(error_message);
                     inputs[i].value = "";
                     return false;
