@@ -94,8 +94,7 @@ if(!empty($_FILES)) {
             document.getElementById("upload_form"), {
                 imageMaxWidth: 100,
                 imageMaxHeight: 100,
-                maxFileSize:100,
-                //maxFileSize: document.querySelector("#upload_form input[name='MAX_FILE_SIZE']").value
+                maxFileSize: document.querySelector("#upload_form input[name='MAX_FILE_SIZE']").value
             }
         );
     });

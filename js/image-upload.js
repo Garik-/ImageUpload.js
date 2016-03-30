@@ -29,7 +29,6 @@ function ImageUpload(form, settings) {
             imageMaxHeight: 1080,
             disableImageResize: false,
         },
-        error_message = "",
         data,
         options = extend({}, defaults, settings);
 
@@ -44,12 +43,8 @@ function ImageUpload(form, settings) {
         }
 
         this.append = function(file) {
-            if(checkMaxSize(file)) {
-                formData.append(name, file, file.name);
-                ++length;
-            } else {
-                --maxLength;
-            }
+            formData.append(name, file, file.name);
+            ++length;
         }
 
         this.full = function() {
@@ -58,6 +53,10 @@ function ImageUpload(form, settings) {
 
         this.get = function() {
             return formData;
+        }
+
+        this.errorFile = function() {
+            --maxLength;
         }
 
     }
@@ -97,7 +96,7 @@ function ImageUpload(form, settings) {
         if (options.fileTypes &&
             !options.fileTypes.test(file.type)) {
 
-            error_message = "Sorry, " + file.name + " is invalid, allowed extensions";
+            alert("Sorry, " + file.name + " is invalid, allowed extensions");
             return false;
         }
 
@@ -108,7 +107,7 @@ function ImageUpload(form, settings) {
 
         if (typeof options.maxFileSize === 'number' &&
             file.size > options.maxFileSize) {
-            error_message = "The file " + file.name + " must be less than " + (options.maxFileSize / 1024 / 1024) + "MB";
+            alert("The file " + file.name + " must be less than " + (options.maxFileSize / 1024 / 1024) + "MB");
             return false;
         }
 
@@ -116,8 +115,6 @@ function ImageUpload(form, settings) {
     }
 
     function upload(file) {
-
-
 
         data.append(file);
 
@@ -201,18 +198,17 @@ function ImageUpload(form, settings) {
 
                 var file = inputs[i].files[j];
 
-                if (!checkExtensions(file)) {
-                    alert(error_message);
-                    inputs[i].value = "";
-                    return false;
-                }
-
-                if (options.disableImageResize) {
-                    upload(file);
+                if(checkExtensions(file) && checkMaxSize(file)) {
+                    if (options.disableImageResize) {
+                        upload(file);
+                    } else {
+                        processImage(file);
+                    }
                 } else {
-                    processImage(file);
+                    data.errorFile();
                 }
             }
+
         }
 
         return false;
