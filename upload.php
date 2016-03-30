@@ -2,7 +2,7 @@
 
 /*
  * Image Upload script
- * https://github.com/Garik-/ImageUpload
+ * https://github.com/Garik-/ImageUpload.js
  *
  * Copyright 2016, Gar|k
  * http://c0dedgarik.blogspot.ru/
