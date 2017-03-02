@@ -1,4 +1,4 @@
-# ImageUpload.js
+# image-upload.js
 
 ## Description
 
@@ -27,3 +27,38 @@ The File Upload plugin has been tested with and supports the following mobile br
 
 ## License
 Released under the [MIT license](http://www.opensource.org/licenses/MIT).
+
+# ImageUpload.js
+
+## Описание
+
+Это вспомогательный класс на основе image-upload.js, написан по стандартам ES-2015
+
+### Пример использования
+```
+import ImageUpload from 'ImageUpload';
+
+let image = new ImageUpload({
+                imageMaxWidth: 500,
+                imageMaxHeight: 500
+            }),
+            data = new FormData();
+            input = document.querySelector(".upload")
+            previews = document.querySelector(".previews");
+
+input.onchange = event => {
+  let files = event.files;
+  files.forEach(file => {
+    image.resize(file).then(img => {
+    
+       let preview = document.createElement("img");
+       preview.src = img.toDataURL();
+       previews.appendChild(preview);
+       
+       data.append('images[]', img.file);
+       
+    }, error => { console.error(error); });
+  });
+};
+                  
+```
