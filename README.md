@@ -28,7 +28,7 @@ The File Upload plugin has been tested with and supports the following mobile br
 ## License
 Released under the [MIT license](http://www.opensource.org/licenses/MIT).
 
-# ImageUpload.js
+# image-resize.js
 
 ## Описание
 
