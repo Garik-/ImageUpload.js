@@ -35,7 +35,7 @@ Released under the [MIT license](http://www.opensource.org/licenses/MIT).
 Это вспомогательный класс на основе image-upload.js, написан по стандартам ES-2015
 
 ### Пример использования
-```
+```js
 import ImageUpload from 'ImageUpload';
 
 let image = new ImageUpload({
