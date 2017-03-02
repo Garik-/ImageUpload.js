@@ -37,32 +37,30 @@ Released under the [MIT license](http://www.opensource.org/licenses/MIT).
 ### Пример использования
 ```js
 'use strict';
-import ImageUpload from 'ImageUpload';
+import resize from 'image-resize';
 
 let data = new FormData(),
-  input = document.querySelector(".upload"),
-  previews = document.querySelector(".previews");
+    input = document.querySelector(".upload"),
+    previews = document.querySelector(".previews");
 
 input.onchange = event => {
-  let files = event.files;
-  files.forEach(file => {
-  
-    let image = new ImageUpload({
-                imageMaxWidth: 500,
-                imageMaxHeight: 500
-            }),
-  
-    image.resize(file).then(img => {
-    
-       let preview = document.createElement("img");
-       preview.src = img.toDataURL();
-       previews.appendChild(preview);
-       
-       data.append('images[]', img.file);
-       
-    }, error => { console.error(error); });
-  
-  });
+    let files = event.files;
+    files.forEach(file => {
+
+        resize(file, {
+            maxWidth: 500,
+            maxHeight: 500
+        }).then(img => {
+            let preview = document.createElement("img");
+            preview.src = img.toDataURL();
+            previews.appendChild(preview);
+
+            data.append('images[]', img);
+        }, error => {
+            console.error(error);
+        });
+
+    });
 };
                   
 ```
