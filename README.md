@@ -36,14 +36,15 @@ Released under the [MIT license](http://www.opensource.org/licenses/MIT).
 
 ### Пример использования
 ```js
+'use strict';
 import ImageUpload from 'ImageUpload';
 
 let image = new ImageUpload({
                 imageMaxWidth: 500,
                 imageMaxHeight: 500
             }),
-            data = new FormData();
-            input = document.querySelector(".upload")
+            data = new FormData(),
+            input = document.querySelector(".upload"),
             previews = document.querySelector(".previews");
 
 input.onchange = event => {
