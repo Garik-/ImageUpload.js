@@ -15,7 +15,7 @@
  * @param {Object} settings
  * @return {Promise}  <File>file with support file.toDataURL(), <Event>error
  */
-export default function resize(file, settings) {
+export default function (file, settings) {
 
     if (!(
             'FileReader' in window &&
