@@ -39,17 +39,19 @@ Released under the [MIT license](http://www.opensource.org/licenses/MIT).
 'use strict';
 import ImageUpload from 'ImageUpload';
 
-let image = new ImageUpload({
-                imageMaxWidth: 500,
-                imageMaxHeight: 500
-            }),
-            data = new FormData(),
-            input = document.querySelector(".upload"),
-            previews = document.querySelector(".previews");
+let data = new FormData(),
+  input = document.querySelector(".upload"),
+  previews = document.querySelector(".previews");
 
 input.onchange = event => {
   let files = event.files;
   files.forEach(file => {
+  
+    let image = new ImageUpload({
+                imageMaxWidth: 500,
+                imageMaxHeight: 500
+            }),
+  
     image.resize(file).then(img => {
     
        let preview = document.createElement("img");
@@ -59,6 +61,7 @@ input.onchange = event => {
        data.append('images[]', img.file);
        
     }, error => { console.error(error); });
+  
   });
 };
                   
