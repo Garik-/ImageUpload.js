@@ -14,10 +14,8 @@
 export default class ImageUpload {
     constructor(settings) {
         if (!(
-                'FormData' in window &&
                 'FileReader' in window &&
                 'File' in window &&
-                'XMLHttpRequest' in window &&
                 'Image' in window))
         {
             throw new Error('Not support features');
