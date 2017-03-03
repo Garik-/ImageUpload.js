@@ -47,10 +47,7 @@ input.onchange = event => {
     let files = event.files;
     files.forEach(file => {
 
-        resize(file, {
-            maxWidth: 500,
-            maxHeight: 500
-        }).then(img => {
+        resize(file, 800, 600).then(img => {
             let preview = document.createElement("img");
             preview.src = img.toDataURL();
             previews.appendChild(preview);
