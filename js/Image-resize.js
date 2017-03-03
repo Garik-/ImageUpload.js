@@ -15,7 +15,7 @@
  * @param {Object} settings
  * @return {Promise}  <File>file with support file.toDataURL(), <Event>error
  */
-export default function (file, settings) {
+export default function (file, maxWidth = 1920, maxHeight = 1080) {
 
     if (!(
             'FileReader' in window &&
@@ -23,14 +23,6 @@ export default function (file, settings) {
             'Image' in window))
     {
         throw new Error('Not support features');
-    }
-
-    function extend() {
-        for (var i = 1; i < arguments.length; i++)
-            for (var key in arguments[i])
-                if (arguments[i].hasOwnProperty(key))
-                    arguments[0][key] = arguments[i][key];
-        return arguments[0];
     }
 
     function dataURItoByte(dataURI) {
@@ -50,11 +42,10 @@ export default function (file, settings) {
         return ia;
     }
 
-    var defaults = {
-        maxWidth: 1920,
-        maxHeight: 1080
-    }, options = extend({}, defaults, settings), newFile = file, dataURL;
-
+    var options = {
+        maxWidth: maxWidth,
+        maxHeight: maxHeight
+    }, newFile = file, dataURL;
 
     return new Promise(function (resolve, reject) {
 
@@ -109,7 +100,7 @@ export default function (file, settings) {
             resolve(newFile);
         }
 
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             img.src = dataURL = e.target.result;
         }
 
